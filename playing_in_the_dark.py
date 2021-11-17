@@ -3,6 +3,7 @@ import time
 import sys
 import random as rand
 from playsound import playsound
+playsound("bell.mp3")
 
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
 scenarios = ["Monster", "Trap", "Treasure"]
