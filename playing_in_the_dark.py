@@ -17,12 +17,24 @@ STR = 5
 LVL = 1
 
 
+class Player:
+    def __init__(self, HP, STR, LVL):
+        self.HP = HP
+        self.STR = STR
+        self.LVL = LVL
+
+
+IBKID = Player(10, 5, 1)
+
+IBKID_print = "HP: ", IBKID.HP, "STR: ", IBKID.STR, "LVL: ", IBKID.LVL
+
+
 def bagcheck():
     print_slow("Your bag contents: ", bag)
 
 
 def statcheck():
-    print_slow("Your stats; HP:", HP, "STR:", STR, "LVL:", LVL)
+    print_slow(IBKID_print)
 
 
 def opendoor():
