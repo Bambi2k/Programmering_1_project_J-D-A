@@ -11,10 +11,7 @@ scenarios = ["Monster", "Trap", "Treasure"]
 # Karaktärens väska eller inventory i början av spelet
 bag = []
 
-# Karaktärens basvärden
-HP = 10
-STR = 5
-LVL = 1
+# Klassen "player" som huvudkaraktären kommer att få
 
 
 class Player:
@@ -24,19 +21,31 @@ class Player:
         self.LVL = LVL
 
 
-IBKID = Player(10, 5, 1)
+# Huvudkaraktären med sina basvärden i HP, STR och LVL
+MAIN = Player(10, 5, 1)
 
-IBKID_print = "HP: ", str(IBKID.HP), " STR: ", str(
-    IBKID.STR), " LVL: ", str(IBKID.LVL)
+# En variabel med texten som kommer printas under statcheck. print slow tar bara ett positionellt argument, o då måste vi göra om helhets texten till en sammansatt sträng
+MAIN_statprint = "HP: ", str(MAIN.HP), " STR: ", str(
+    MAIN.STR), " LVL: ", str(MAIN.LVL)
+
+# En variabel med texten som kommer printas under bagcheck. print slow tar bara ett positionellt argument, o då måste vi göra om helhets texten till en sammansatt sträng
+MAIN_bagprint = "Your inventory : ", str(bag)
+
+# Funktionen som kommer spelas när du väljer att titta igenom ditt inventory(bag)
 
 
 def bagcheck():
-    print_slow("Your bag contents: ", bag)
+    print_slow(MAIN_bagprint)
+    print("\n")
+
+# Funktionen som kommer spelas när du väljer att titta dina värden (stats)
 
 
 def statcheck():
-    print_slow(IBKID_print)
+    print_slow(MAIN_statprint)
     print("\n")
+
+# Funktionen som kommer spelas när du väljer att öppna en dörr i main loopen.
 
 
 def opendoor():
@@ -76,7 +85,6 @@ def print_medium(str):
 
 
 # Functionen som startar igång spelet
-
 
 def start():
     play = input(
@@ -118,6 +126,7 @@ def tutorial():
 
 
 # Introducerar spelets plats för att skapa atmosfär (mellan varje rad text printas en blank rad, och sedan är det en 1 sekunds paus innan nästa rad)
+
 def intro():
     print("\n")
     print_slow("Darkness")
@@ -151,11 +160,11 @@ def intro():
     time.sleep(1)
     playloop()
 
+
 # Spelets loop som kör igenom spelet.
 
-
 def playloop():
-    while HP >= 0 or LVL <= 10:
+    while MAIN.HP >= 0 or MAIN.LVL <= 10:
         print_slow("What would you like to do?")
         print("\n")
         print_slow(
