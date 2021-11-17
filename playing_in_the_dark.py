@@ -26,7 +26,8 @@ class Player:
 
 IBKID = Player(10, 5, 1)
 
-IBKID_print = "HP: ", IBKID.HP, "STR: ", IBKID.STR, "LVL: ", IBKID.LVL
+IBKID_print = "HP: ", str(IBKID.HP), " STR: ", str(
+    IBKID.STR), " LVL: ", str(IBKID.LVL)
 
 
 def bagcheck():
@@ -35,6 +36,7 @@ def bagcheck():
 
 def statcheck():
     print_slow(IBKID_print)
+    print("\n")
 
 
 def opendoor():
