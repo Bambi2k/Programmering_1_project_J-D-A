@@ -62,10 +62,13 @@ def tutorial():
 def playloop():
     while HP >= 0 or LVL <= 10:
         print_slow("What would you like to do?")
+        print()
         choice = input(
-            "Would you like to: open a door, check stats or check inventory?")
-        if choice == "open":
-            input("Which door would you like to open? 1/2/3: ")
+            "Would you like to: open a door, check stats or check inventory? ").lower().strip()
+        if choice == "bag":
+            print_slow("Your bag contents: ", bag)
+        if choice == "stats":
+            print_slow("Your stats; HP:", HP, "STR:", STR, "LVL:", LVL)
 
 
 # Skapar lite klar yta i termninalen
