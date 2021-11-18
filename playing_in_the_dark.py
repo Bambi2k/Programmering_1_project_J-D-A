@@ -181,7 +181,7 @@ def intro():
 # Spelets loop som kör igenom spelet.
 
 def playloop():
-    while MAIN.HP >= 0 or MAIN.LVL <= 10:
+    while MAIN.HP > 0 or MAIN.LVL < 10:
         print_slow("What would you like to do?")
         print("\n")
         print_slow(
