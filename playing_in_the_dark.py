@@ -25,8 +25,11 @@ class Player:
 
 class Item:
     def __init__(self, STR, LVL, HP):
+        print()
 
-        # Huvudkaraktären med sina basvärden i HP, STR och LVL + en tom "bag"
+ # Huvudkaraktären med sina basvärden i HP, STR och LVL + en tom "bag"
+
+
 MAIN = Player(10, 3, 1, [])
 
 
@@ -79,6 +82,7 @@ def monsterfight():
 
 
 def open_chest():
+    print()
 
     # Funktionen som kommer spelas när du väljer att öppna en dörr i main loopen.
 
