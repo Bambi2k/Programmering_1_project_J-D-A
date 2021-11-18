@@ -3,15 +3,16 @@ import time
 import sys
 import random as rand
 from playsound import playsound
-from pygame import mixer
 import random
-playsound("bell.mp3")
+import multiprocessing
+#playsound("bell.mp3")
 
 # GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
 
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
 scenarios = ["Monster", "Trap", "Treasure"]
 
+# p.terminate()
 
 # Klassen "player" som huvudkaraktären kommer att få
 
@@ -124,6 +125,8 @@ def again1():
 
 
 def start():
+    #p = multiprocessing.Process(target=playsound, args=("intro.mp3",))
+    #p.start()
 
     print_slow("Would you like to start the game? (Yes/No): ")
     play = input().lower().strip()
