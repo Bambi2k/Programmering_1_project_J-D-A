@@ -3,6 +3,7 @@ import time
 import sys
 import random as rand
 from playsound import playsound
+from pygame import mixer
 playsound("bell.mp3")
 
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
@@ -65,8 +66,14 @@ def again1():
     clear()
     start()
 
-# Bokstav för bokstav print, för en mer långsam och förstårbar upplevelse
 
+def again2():
+    time.sleep(1)
+    print_slow("Please enter a valid answer")
+    clear()
+
+
+# Bokstav för bokstav print, för en mer långsam och förstårbar upplevelse
 
 def print_slow(str):
     for letter in str:
@@ -87,15 +94,18 @@ def print_medium(str):
 # Functionen som startar igång spelet
 
 def start():
-    play = input(
-        "Would you like to start the game? (Yes/No): ").lower().strip()
+
+    print_slow("Would you like to start the game? (Yes/No): ")
+    play = input().lower().strip()
     if play == "yes":
-        want_tutorial = input(
-            "Would you like a tutorial? (Yes/No): ").lower().strip()
+        print_slow("Would you like a tutorial? (Yes/No): ")
+        want_tutorial = input().lower().strip()
         if want_tutorial == "yes":
             tutorial()
         elif want_tutorial == "no":
             intro()
+        elif play != "yes" or "no":
+            again1()
     elif play == "no":
         print_slow("Maybe next time")
     elif play != "yes" or "no":
