@@ -5,7 +5,7 @@ import random as rand
 from playsound import playsound
 import random
 import multiprocessing
-#playsound("bell.mp3")
+# playsound("bell.mp3")
 
 # GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
 
@@ -15,6 +15,7 @@ scenarios = ["Monster", "Trap", "Treasure"]
 # p.terminate()
 
 # Klassen "player" som huvudkaraktären kommer att få
+
 
 class Player:
     def __init__(self, HP, STR, LVL, BAG):
@@ -81,7 +82,8 @@ def monsterfight():
     time.sleep(2)
     if monsterstr < MAIN.STR:
         print_medium("You won the battle and gained 1 LVL!")
-        MAIN.STR = MAIN.STR + 1
+        MAIN.LVL = MAIN.LVL + 1
+        print("\n")
     else:
         print_medium("You lost the battle and lost 1 HP")
         print("\n")
@@ -140,7 +142,7 @@ def again1():
 
 def start():
     #p = multiprocessing.Process(target=playsound, args=("intro.mp3",))
-    #p.start()
+    # p.start()
 
     print_slow("Would you like to start the game? (Yes/No): ")
     play = input().lower().strip()
