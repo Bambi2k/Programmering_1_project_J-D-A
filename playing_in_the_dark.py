@@ -23,7 +23,10 @@ class Player:
         self.BAG = BAG
 
 
-# Huvudkaraktären med sina basvärden i HP, STR och LVL + en tom "bag"
+class Item:
+    def __init__(self, STR, LVL, HP):
+
+        # Huvudkaraktären med sina basvärden i HP, STR och LVL + en tom "bag"
 MAIN = Player(10, 3, 1, [])
 
 
@@ -66,7 +69,18 @@ def statcheck():
     print_slow(MAIN_statprint)
     print("\n")
 
-# Funktionen som kommer spelas när du väljer att öppna en dörr i main loopen.
+
+def monsterfight():
+    monsterstr = random.randint(2, 8)
+    print_medium("You have encountered a monster!")
+    if monsterstr < MAIN.STR:
+        print_medium("You won the battle!")
+        MAIN.STR = MAIN.STR + 1
+
+
+def open_chest():
+
+    # Funktionen som kommer spelas när du väljer att öppna en dörr i main loopen.
 
 
 def opendoor():
@@ -79,11 +93,12 @@ def opendoor():
         print("\n")
         opendoor()
     if scen == "Monster":
-        monsterstr = random.randint(2, 8)
-        print_medium("You have encountered a monster!")
-        if monsterstr < MAIN.STR:
-            print_medium("You won the battle!")
-            MAIN.STR = MAIN.STR + 1
+        monsterfight()
+    if scen == "Treasure":
+        open_chest()
+    if scen == "Trap":
+        print()
+    playloop()
 
 
 # Skapar lite klar yta i termninalen (/n skippar en rad)
