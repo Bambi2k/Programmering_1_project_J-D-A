@@ -76,9 +76,15 @@ def statcheck():
 def monsterfight():
     monsterstr = random.randint(2, 8)
     print_medium("You have encountered a monster!")
+    print("\n")
+    time.sleep(2)
     if monsterstr < MAIN.STR:
-        print_medium("You won the battle!")
+        print_medium("You won the battle and gained 1 LVL!")
         MAIN.STR = MAIN.STR + 1
+    else:
+        print_medium("You lost the battle and lost 1 HP")
+        print("\n")
+    time.sleep(2)
 
 
 def open_chest():
