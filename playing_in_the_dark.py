@@ -89,13 +89,14 @@ def open_chest():
 
 def opendoor():
     print_slow("Which door looks the most interesting..? Door 1, 2 or 3? ")
-    door_choice = input().lower().strip
-    if door_choice == "1" or "2" or "3":
-        scen = random.choices(scenarios, k=1)
-    elif door_choice != "1" or "2" or "3":
+    door_choice = input().lower().strip()
+    if door_choice in ["1", "2", "3"]:
+        scen = random.choice(scenarios)
+    elif not door_choice in ["1", "2", "3"]:
         print("Please choose 1, 2 or 3")
         print("\n")
         opendoor()
+    print(scen)
     if scen == "Monster":
         monsterfight()
     if scen == "Treasure":
