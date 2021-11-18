@@ -32,6 +32,15 @@ MAIN_statprint = "HP: ", str(MAIN.HP), " STR: ", str(
 # En variabel med texten som kommer printas under bagcheck. print slow tar bara ett positionellt argument, o då måste vi göra om helhets texten till en sammansatt sträng
 MAIN_bagprint = "Your inventory : ", str(bag)
 
+
+# Bokstav för bokstav print, för en mer långsam och förstårbar upplevelse
+
+def print_slow(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
 # Funktionen som kommer spelas när du väljer att titta igenom ditt inventory(bag)
 
 
@@ -50,10 +59,15 @@ def statcheck():
 
 
 def opendoor():
-    print()
+    print_slow("Which door looks the most interesting..? Door 1, 2 or 3? ")
+    door_choice = input().lower().strip
+    if door_choice == "1" or "2" or "3":
+        print()
 
 
 # Skapar lite klar yta i termninalen (/n skippar en rad)
+
+
 def clear():
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
@@ -72,14 +86,6 @@ def again2():
     print_slow("Please enter a valid answer")
     clear()
 
-
-# Bokstav för bokstav print, för en mer långsam och förstårbar upplevelse
-
-def print_slow(str):
-    for letter in str:
-        sys.stdout.write(letter)
-        sys.stdout.flush()
-        time.sleep(0.05)
 
 # Bokstav för bokstav print men något snabbare än den ovan
 
