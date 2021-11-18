@@ -98,7 +98,7 @@ def trap():
     print_medium("You fell into a trap, and took damage: ") 
     print(damage)
     MAIN.HP=MAIN.HP-damage
-    print("")
+    print("\n")
 
 
     # Funktionen som kommer spelas när du väljer att öppna en dörr i main loopen.
