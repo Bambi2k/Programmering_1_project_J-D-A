@@ -16,14 +16,15 @@ bag = []
 
 
 class Player:
-    def __init__(self, HP, STR, LVL):
+    def __init__(self, HP, STR, LVL, BAG):
         self.HP = HP
         self.STR = STR
         self.LVL = LVL
+        self.BAG = BAG
 
 
 # Huvudkaraktären med sina basvärden i HP, STR och LVL
-MAIN = Player(10, 5, 1)
+MAIN = Player(10, 5, 1, [])
 
 # En variabel med texten som kommer printas under statcheck. print slow tar bara ett positionellt argument, o då måste vi göra om helhets texten till en sammansatt sträng
 MAIN_statprint = "HP: ", str(MAIN.HP), " STR: ", str(
