@@ -48,7 +48,7 @@ def print_slow(str):
     for letter in str:
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(0.05)
+        time.sleep(0.0)
 
 # Bokstav för bokstav print men något snabbare än den ovan
 
@@ -87,9 +87,17 @@ def monsterfight():
         print("\n")
     time.sleep(2)
 
-
 def open_chest():
     print()
+
+
+def trap():
+    damage = random.randint(1,3)
+    print_medium("You fell into a trap, and took damage: ") 
+    print(damage)
+    MAIN.HP=MAIN.HP-damage
+    print("")
+
 
     # Funktionen som kommer spelas när du väljer att öppna en dörr i main loopen.
 
@@ -109,7 +117,7 @@ def opendoor():
     if scen == "Treasure":
         open_chest()
     if scen == "Trap":
-        print()
+        trap()
     playloop()
 
 
