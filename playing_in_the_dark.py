@@ -197,5 +197,3 @@ def playloop():
 
 clear()
 start()
-
-hej david din pab
