@@ -6,6 +6,8 @@ from playsound import playsound
 from pygame import mixer
 playsound("bell.mp3")
 
+# GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
+
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
 scenarios = ["Monster", "Trap", "Treasure"]
 
@@ -31,7 +33,7 @@ MAIN_statprint = "HP: ", str(MAIN.HP), " STR: ", str(
     MAIN.STR), " LVL: ", str(MAIN.LVL)
 
 # En variabel med texten som kommer printas under bagcheck. print slow tar bara ett positionellt argument, o då måste vi göra om helhets texten till en sammansatt sträng
-MAIN_bagprint = "Your inventory : ", str(bag)
+MAIN_bagprint = "Your inventory : ", str(MAIN.BAG)
 
 
 # Bokstav för bokstav print, för en mer långsam och förstårbar upplevelse
