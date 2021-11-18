@@ -97,7 +97,7 @@ def trap():
     damage = random.randint(1,3)
     print_medium("You fell into a trap, and took damage: ") 
     print(damage)
-    MAIN.HP=MAIN.HP-damage
+    return damage
     print("\n")
 
 
@@ -119,7 +119,8 @@ def opendoor():
     if scen == "Treasure":
         open_chest()
     if scen == "Trap":
-        trap()
+        damage = trap()
+        return damage
     playloop()
 
 
@@ -143,16 +144,18 @@ def again1():
 def start():
     #p = multiprocessing.Process(target=playsound, args=("intro.mp3",))
     # p.start()
-
+    player = Player(10,3,1,[])
     print_slow("Would you like to start the game? (Yes/No): ")
     play = input().lower().strip()
     if play == "yes":
+
         print_slow("Would you like a tutorial? (Yes/No): ")
         want_tutorial = input().lower().strip()
         if want_tutorial == "yes":
             tutorial()
         elif want_tutorial == "no":
             intro()
+            playloop(player)
         elif play != "yes" or "no":
             again1()
     elif play == "no":
@@ -217,13 +220,12 @@ def intro():
     print_slow("Walking a couple of meters reveales 3 identical doors.")
     print("\n")
     time.sleep(1)
-    playloop()
 
 
 # Spelets loop som kör igenom spelet.
 
-def playloop():
-    while MAIN.HP > 0 or MAIN.LVL < 10:
+def playloop(player: Player):
+    while player.HP > 0 or player.LVL < 10:
         print_slow("What would you like to do?")
         print("\n")
         print_slow(
@@ -234,7 +236,8 @@ def playloop():
         if choice == "stats":
             statcheck()
         if choice == "open":
-            opendoor()
+            damage = opendoor()
+            player.HP = player.HP-damage
 
 
 clear()
