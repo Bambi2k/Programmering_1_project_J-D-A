@@ -4,6 +4,7 @@ import sys
 import random as rand
 from playsound import playsound
 from pygame import mixer
+import random
 playsound("bell.mp3")
 
 # GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
@@ -11,11 +12,8 @@ playsound("bell.mp3")
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
 scenarios = ["Monster", "Trap", "Treasure"]
 
-# Karaktärens väska eller inventory i början av spelet
-bag = []
 
 # Klassen "player" som huvudkaraktären kommer att få
-
 
 class Player:
     def __init__(self, HP, STR, LVL, BAG):
@@ -25,8 +23,9 @@ class Player:
         self.BAG = BAG
 
 
-# Huvudkaraktären med sina basvärden i HP, STR och LVL
-MAIN = Player(10, 5, 1, [])
+# Huvudkaraktären med sina basvärden i HP, STR och LVL + en tom "bag"
+MAIN = Player(10, 3, 1, [])
+
 
 # En variabel med texten som kommer printas under statcheck. print slow tar bara ett positionellt argument, o då måste vi göra om helhets texten till en sammansatt sträng
 MAIN_statprint = "HP: ", str(MAIN.HP), " STR: ", str(
@@ -43,6 +42,15 @@ def print_slow(str):
         sys.stdout.write(letter)
         sys.stdout.flush()
         time.sleep(0.05)
+
+# Bokstav för bokstav print men något snabbare än den ovan
+
+
+def print_medium(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.03)
 
 # Funktionen som kommer spelas när du väljer att titta igenom ditt inventory(bag)
 
@@ -65,11 +73,20 @@ def opendoor():
     print_slow("Which door looks the most interesting..? Door 1, 2 or 3? ")
     door_choice = input().lower().strip
     if door_choice == "1" or "2" or "3":
-        print()
+        scen = random.choices(scenarios, k=1)
+    elif door_choice != "1" or "2" or "3":
+        print("Please choose 1, 2 or 3")
+        print("\n")
+        opendoor()
+    if scen == "Monster":
+        monsterstr = random.randint(2, 8)
+        print_medium("You have encountered a monster!")
+        if monsterstr < MAIN.STR:
+            print_medium("You won the battle!")
+            MAIN.STR = MAIN.STR + 1
 
 
 # Skapar lite klar yta i termninalen (/n skippar en rad)
-
 
 def clear():
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
@@ -83,24 +100,8 @@ def again1():
     clear()
     start()
 
-
-def again2():
-    time.sleep(1)
-    print_slow("Please enter a valid answer")
-    clear()
-
-
-# Bokstav för bokstav print men något snabbare än den ovan
-
-
-def print_medium(str):
-    for letter in str:
-        sys.stdout.write(letter)
-        sys.stdout.flush()
-        time.sleep(0.03)
-
-
 # Functionen som startar igång spelet
+
 
 def start():
 
