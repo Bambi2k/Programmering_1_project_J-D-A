@@ -26,21 +26,9 @@ class Player:
 
 
 class Item:
-    def __init__(self, STR, LVL, HP):
+    def __init__(self, STR):
+        self.STR = STR
         print()
-
- # Huvudkaraktären med sina basvärden i HP, STR och LVL + en tom "bag"
-
-
-MAIN = Player(10, 3, 1, [])
-
-
-# En variabel med texten som kommer printas under statcheck. print slow tar bara ett positionellt argument, o då måste vi göra om helhets texten till en sammansatt sträng
-MAIN_statprint = "HP: ", str(MAIN.HP), " STR: ", str(
-    MAIN.STR), " LVL: ", str(MAIN.LVL)
-
-# En variabel med texten som kommer printas under bagcheck. print slow tar bara ett positionellt argument, o då måste vi göra om helhets texten till en sammansatt sträng
-MAIN_bagprint = "Your inventory : ", str(MAIN.BAG)
 
 
 # Bokstav för bokstav print, för en mer långsam och förstårbar upplevelse
@@ -64,26 +52,33 @@ def print_medium(str):
 # Funktionen som kommer spelas när du väljer att titta igenom ditt inventory(bag)
 
 
-def bagcheck():
-    print_slow(MAIN_bagprint)
+def bagcheck(player):
+    print_slow("Your inventory:")
+    print_slow(player.BAG)
     print("\n")
 
 # Funktionen som kommer spelas när du väljer att titta dina värden (stats)
 
 
-def statcheck():
-    print_slow(MAIN_statprint)
+def statcheck(player):
+    print_slow("Your stats in order of HP,STR,LVL")
+    print("\n")
+    print_slow(str(player.HP))
+    print("\n")
+    print_slow(str(player.STR))
+    print("\n")
+    print_slow(str(player.LVL))
     print("\n")
 
 
-def monsterfight():
+def monsterfight(player):
     monsterstr = random.randint(2, 8)
     print_medium("You have encountered a monster!")
     print("\n")
     time.sleep(2)
-    if monsterstr < MAIN.STR:
+    if monsterstr < player.STR:
         print_medium("You won the battle and gained 1 LVL!")
-        MAIN.LVL = MAIN.LVL + 1
+        player.LVL = player.LVL + 1
         print("\n")
     else:
         print_medium("You lost the battle and lost 1 HP")
@@ -91,37 +86,34 @@ def monsterfight():
     time.sleep(2)
 
 
-def open_chest():
-    print()
+def open_chest(player):
+    Blade = Item(2)
+    Dagger = Item(1)
+    Shortsword = Item(3)
+    Excalibur = Item(5)
+    item_list = [Blade, Dagger, Shortsword, Excalibur]
+    prize = random.choice(item_list)
+    if len(player.BAG) < 5:
+        player.BAG.append(prize)
+    else:
+        print_slow(
+            "Your inventory is full! Would you like to swap an item?: (Yes/No)")
+        choice = input().lower().strip()
+        if choice == "yes":
+            print(player.BAG)
+            print_slow("Select an item index (0-4) that you would like to swap")
+            index = int(input().strip())
+            player.BAG.pop(index)
+            player.BAG.append(prize)
+        if choice == "no":
+            print_slow("Alright then...")
 
 
-def trap():
+def trap(player):
     damage = random.randint(1, 3)
     print_medium("You fell into a trap, and took damage: ")
-    print(damage)
-    return damage
-
-    # Funktionen som kommer spelas när du väljer att öppna en dörr i main loopen.
-
-
-def opendoor():
-    print_slow("Which door looks the most interesting..? Door 1, 2 or 3? ")
-    door_choice = input().lower().strip()
-    if door_choice in ["1", "2", "3"]:
-        scen = random.choice(scenarios)
-    elif not door_choice in ["1", "2", "3"]:
-        print("Please choose 1, 2 or 3")
-        print("\n")
-        opendoor()
-    print(scen)
-    if scen == "Monster":
-        monsterfight()
-    if scen == "Treasure":
-        open_chest()
-    if scen == "Trap":
-        damage = trap()
-        return damage
-    playloop()
+    print_slow(str(damage))
+    player.HP = player.HP - damage
 
 
 # Skapar lite klar yta i termninalen (/n skippar en rad)
@@ -144,7 +136,7 @@ def again1():
 def start():
     #p = multiprocessing.Process(target=playsound, args=("intro.mp3",))
     # p.start()
-    player = Player(10,3,1,[])
+    player = Player(10, 3, 1, [])
     print_slow("Would you like to start the game? (Yes/No): ")
     play = input().lower().strip()
     if play == "yes":
@@ -184,7 +176,6 @@ def tutorial():
     print("\n")
     time.sleep(2)
     print("\n\n")
-    intro()
 
 
 # Introducerar spelets plats för att skapa atmosfär (mellan varje rad text printas en blank rad, och sedan är det en 1 sekunds paus innan nästa rad)
@@ -232,12 +223,21 @@ def playloop(player: Player):
             "Would you like to: open a door, check stats or check inventory? ")
         choice = input().lower().strip()
         if choice == "bag":
-            bagcheck()
+            bagcheck(player)
         if choice == "stats":
-            statcheck()
+            statcheck(player)
         if choice == "open":
-            damage = opendoor()
-            player.HP = player.HP-damage
+            print_slow(
+                "Which door looks the most interesting..? Door 1, 2 or 3? ")
+            door_choice = input().lower().strip()
+            if door_choice in ["1", "2", "3"]:
+                scen = random.choice(scenarios)
+            if scen == "Monster":
+                monsterfight(player)
+            if scen == "Treasure":
+                open_chest(player)
+            if scen == "Trap":
+                trap(player)
 
 
 clear()
