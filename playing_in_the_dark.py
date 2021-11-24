@@ -47,7 +47,8 @@ def print_medium(str):
     for letter in str:
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(0.03)
+        # time.sleep(0.03)
+        time.sleep(0)
 
 # Funktionen som kommer spelas när du väljer att titta igenom ditt inventory(bag)
 
@@ -82,6 +83,7 @@ def monsterfight(player):
         print("\n")
     else:
         print_medium("You lost the battle and lost 1 HP")
+        player.HP = player.HP - 1
         print("\n")
     time.sleep(2)
 
@@ -95,6 +97,9 @@ def open_chest(player):
     prize = random.choice(item_list)
     if len(player.BAG) < 5:
         player.BAG.append(prize)
+        print_medium("You have recieved an item: ")
+        print("\n")
+        print_medium(prize)
     else:
         print_slow(
             "Your inventory is full! Would you like to swap an item?: (Yes/No)")
@@ -114,6 +119,7 @@ def trap(player):
     print_medium("You fell into a trap, and took damage: ")
     print_slow(str(damage))
     player.HP = player.HP - damage
+    print("\n")
 
 
 # Skapar lite klar yta i termninalen (/n skippar en rad)
@@ -217,10 +223,9 @@ def intro():
 
 def playloop(player: Player):
     while player.HP > 0 or player.LVL < 10:
-        print_slow("What would you like to do?")
         print("\n")
         print_slow(
-            "Would you like to: open a door, check stats or check inventory? ")
+            "Would you like to: open a door(open), check stats(stats) or check inventory(bag)? ")
         choice = input().lower().strip()
         if choice == "bag":
             bagcheck(player)
