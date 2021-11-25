@@ -10,7 +10,7 @@ import multiprocessing
 # GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
 
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
-scenarios = ["Monster", "Monster", "Monster" "Trap", "Treasure", "Treasure"]
+scenarios = ["Monster", "Monster", "Monster", "Trap", "Treasure", "Treasure"]
 
 # p.terminate()
 
@@ -91,7 +91,7 @@ def monsterfight(player):
         print("\n")
     elif monsterstr == player.STR:
         print_medium(
-            "The monster and you where evenly matched, and you managed to flee the monster unsathed")
+            "The monster and you where evenly matched, and you managed to flee the monster unscathed.")
     else:
         print_medium("You lost the battle and lost 1 HP")
         player.HP = player.HP - 1
@@ -118,15 +118,23 @@ def open_chest(player):
         print("\n")
         print_medium(prize.NAME)
     else:
+        print("\n")
+        print_medium("The chest contained the item: ")
+        print("\n")
+        print_medium(prize.NAME)
+        print("\n")
         print_slow(
-            "Your inventory is full! Would you like to swap an item?: (Yes/No)")
+            "Your inventory is full! Would you like to swap an item?: (Yes/No) ")
         choice = input().lower().strip()
         if choice == "yes":
-            print(player.BAG)
-            print_slow("Select an item index (0-4) that you would like to swap")
+            bagcheck(player)
+            print_slow(
+                "Select an item index (0-4) that you would like to swap: ")
             index = int(input().strip())
             player.BAG.pop(index)
             player.BAG.append(prize)
+            print("\n")
+            print_medium("Your new item has been added to your inventory")
         if choice == "no":
             print_slow("Alright then...")
 
