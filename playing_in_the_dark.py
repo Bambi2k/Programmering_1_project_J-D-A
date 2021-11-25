@@ -79,6 +79,7 @@ def statcheck(player):
 
 def monsterfight(player):
     monsterstr = random.randint(2, 12)
+    print("\n")
     print_medium("You have encountered a monster! ")
     print_medium("It has a strenghth of: ")
     print_medium(str(monsterstr))
@@ -90,7 +91,7 @@ def monsterfight(player):
         print("\n")
     elif monsterstr == player.STR:
         print_medium(
-            "The monster and you where evenly matched, and the monster fled")
+            "The monster and you where evenly matched, and you managed to flee the monster unsathed")
     else:
         print_medium("You lost the battle and lost 1 HP")
         player.HP = player.HP - 1
