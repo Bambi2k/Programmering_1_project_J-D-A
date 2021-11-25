@@ -10,7 +10,7 @@ import multiprocessing
 # GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
 
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
-scenarios = ["Monster", "Trap", "Treasure"]
+scenarios = ["Monster", "Monster", "Monster" "Trap", "Treasure", "Treasure"]
 
 # p.terminate()
 
