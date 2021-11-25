@@ -26,9 +26,9 @@ class Player:
 
 
 class Item:
-    def __init__(self, STR):
+    def __init__(self, NAME, STR):
+        self.NAME = NAME
         self.STR = STR
-        print()
 
 
 # Bokstav för bokstav print, för en mer långsam och förstårbar upplevelse
@@ -54,9 +54,14 @@ def print_medium(str):
 
 
 def bagcheck(player):
-    print_slow("Your inventory:")
-    print_slow(player.BAG)
     print("\n")
+    bag_list = []
+    print_slow("Your inventory: ")
+    for item in player.BAG:
+        bag_list.append(item.NAME)
+    print(bag_list)
+    print("\n")
+
 
 # Funktionen som kommer spelas när du väljer att titta dina värden (stats)
 
@@ -73,14 +78,19 @@ def statcheck(player):
 
 
 def monsterfight(player):
-    monsterstr = random.randint(2, 8)
-    print_medium("You have encountered a monster!")
+    monsterstr = random.randint(2, 12)
+    print_medium("You have encountered a monster! ")
+    print_medium("It has a strenghth of: ")
+    print_medium(str(monsterstr))
     print("\n")
     time.sleep(2)
     if monsterstr < player.STR:
         print_medium("You won the battle and gained 1 LVL!")
         player.LVL = player.LVL + 1
         print("\n")
+    elif monsterstr == player.STR:
+        print_medium(
+            "The monster and you where evenly matched, and the monster fled")
     else:
         print_medium("You lost the battle and lost 1 HP")
         player.HP = player.HP - 1
@@ -89,17 +99,23 @@ def monsterfight(player):
 
 
 def open_chest(player):
-    Blade = Item(2)
-    Dagger = Item(1)
-    Shortsword = Item(3)
-    Excalibur = Item(5)
-    item_list = [Blade, Dagger, Shortsword, Excalibur]
+
+    Broadsword = Item("Broadsword", 3)
+    Machete = Item("Machete", 2)
+    Katana = Item("Katana", 2)
+    Blade = Item("Blade", 2)
+    Knife = Item("Knife", 1)
+    Dagger = Item("Dagger", 1)
+    Shortsword = Item("Shortsword", 1)
+    Excalibur = Item("Excalibur", 5)
+    item_list = [Blade, Dagger, Shortsword,
+                 Excalibur, Knife, Katana, Machete, Broadsword]
     prize = random.choice(item_list)
     if len(player.BAG) < 5:
         player.BAG.append(prize)
         print_medium("You have recieved an item: ")
         print("\n")
-        print_medium(prize)
+        print_medium(prize.NAME)
     else:
         print_slow(
             "Your inventory is full! Would you like to swap an item?: (Yes/No)")
@@ -115,7 +131,8 @@ def open_chest(player):
 
 
 def trap(player):
-    damage = random.randint(1, 3)
+    damage = random.randint(1, 2)
+    print("\n")
     print_medium("You fell into a trap, and took damage: ")
     print_slow(str(damage))
     player.HP = player.HP - damage
@@ -136,13 +153,22 @@ def again1():
     clear()
     start()
 
+
+def total_str(player):
+    player.STR = 4
+    t_str = 0
+    for item in player.BAG:
+        t_str = t_str + item.STR
+    player.STR = player.STR + t_str
+
+
 # Functionen som startar igång spelet
 
 
 def start():
-    #p = multiprocessing.Process(target=playsound, args=("intro.mp3",))
+    # p = multiprocessing.Process(target=playsound, args=("intro.mp3",))
     # p.start()
-    player = Player(10, 3, 1, [])
+    player = Player(10, 4, 1, [])
     print_slow("Would you like to start the game? (Yes/No): ")
     play = input().lower().strip()
     if play == "yes":
@@ -189,40 +215,41 @@ def tutorial():
 def intro():
     print("\n")
     print_slow("Darkness")
-    time.sleep(1)
+    # time.sleep(1)
     print("\n")
     print_slow("Nothing but darkness")
-    time.sleep(1)
+    # time.sleep(1)
     print("\n")
     print_slow(
         "You feel around you with your hands, struggling to understand what is going on")
-    time.sleep(1)
+    # time.sleep(1)
     print("\n")
     print_slow("The ground is cold to the touch")
-    time.sleep(1)
+    # time.sleep(1)
     print("\n")
     print_slow("You stand up and reach for your phone")
-    time.sleep(1)
+    # time.sleep(1)
     print("\n")
     print_slow("No cell connection...")
-    time.sleep(1)
+    # time.sleep(1)
     print("\n")
     print_slow("You turn on the flashlight and look around")
-    time.sleep(1)
+    # time.sleep(1)
     print("\n")
     print_slow("I gotta get out of here")
-    time.sleep(1)
+    # time.sleep(1)
     print("\n")
-    time.sleep(2)
+    # time.sleep(2)
     print_slow("Walking a couple of meters reveales 3 identical doors.")
     print("\n")
-    time.sleep(1)
+    # time.sleep(1)
 
 
 # Spelets loop som kör igenom spelet.
 
 def playloop(player: Player):
-    while player.HP > 0 or player.LVL < 10:
+    while player.HP > 0 and player.LVL < 10:
+        total_str(player)
         print("\n")
         print_slow(
             "Would you like to: open a door(open), check stats(stats) or check inventory(bag)? ")
@@ -233,7 +260,7 @@ def playloop(player: Player):
             statcheck(player)
         if choice == "open":
             print_slow(
-                "Which door looks the most interesting..? Door 1, 2 or 3? ")
+                "Which door would you like to choose? Door 1, 2 or 3? ")
             door_choice = input().lower().strip()
             if door_choice in ["1", "2", "3"]:
                 scen = random.choice(scenarios)
@@ -245,5 +272,15 @@ def playloop(player: Player):
                 trap(player)
 
 
+def win_lose(player):
+    if player.HP == 0:
+        print_medium("You died and lost the game. Better luck next time!")
+    elif player.LVL == 10:
+        print_medium(
+            "You reached lvl 10 and won the game! But the game is not over yet!")
+        # endgame()
+
+
 clear()
 start()
+win_lose()
