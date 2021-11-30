@@ -2,7 +2,6 @@
 import time
 import sys
 import random as rand
-from playsound import playsound
 import random
 import multiprocessing
 import threading
@@ -13,7 +12,6 @@ from pygame import mixer
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
 scenarios = ["Monster", "Monster", "Monster", "Trap", "Treasure", "Treasure"]
 
-# p.terminate()
 
 # Klassen "player" som huvudkaraktären kommer att få
 
