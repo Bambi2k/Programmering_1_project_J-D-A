@@ -59,6 +59,15 @@ def print_medium(str):
         # time.sleep(0.03)
         time.sleep(0)
 
+# Super långsam print grej
+
+
+def print_superslow(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+
+        time.sleep(0.7)
 # Funktionen som kommer spelas när du väljer att titta igenom ditt inventory(bag)
 
 
@@ -327,9 +336,56 @@ def win_lose(player):
         start()
     elif player.LVL == 10:
         print_medium(
-            "You reached lvl 10 and won the game! But the game is not over yet!")
+            "You reached lvl 10!")
+        time.sleep(1)
+        print("\n")
+        print_medium("You look around in the darkness")
+        time.sleep(1)
+        print("\n")
+        print_medium(
+            "Silhouttes of the monsters you have slain laying on the ice cold floor")
+        time.sleep(1)
+        print("\n")
+        print_medium("You hear footseps approaching your room.")
+        time.sleep(1)
+        print("\n")
+        print_medium(
+            "You hear the wooden door creak as light floods your room from the outside")
+        time.sleep(1)
+        print("\n")
+        print_medium(
+            "A beam of light, bright as the sun flickers to life above you")
+        time.sleep(1)
+        print("\n")
+        print_medium(
+            "'George?! What are you doing up so late?' you hear a familiar voice say")
+        time.sleep(1)
+        print("\n")
+        print_medium(
+            "'Uhhh... Nothing mom. Just cleaning my room' you respond instinctively")
+        time.sleep(1)
+        print("\n")
+        print_medium(
+            "'Well you did not do a very good job then. Go to bed NOW!' she said strictly")
+        time.sleep(1)
+        print("\n")
+        print_medium("'Alright mom' you answer.")
+        time.sleep(1)
+        print("\n")
+        print_medium(
+            "As you stand up and look around, you see your monster stuffed animals laying on the ground. Next to you is a foam sword")
+        time.sleep(1)
+        print("\n")
+        print_medium("'I wish I could keep playing' I said to myself")
+        time.sleep(1)
+        print("\n")
+        print_medium("The light turns of as you curl up in your bed")
+        time.sleep(1)
+        print("\n")
+        print_superslow("THE END")
         print("\n")
         print("\n")
+        time.sleep(6)
         outro()
         # endgame() Vi utvecklar senare
 
