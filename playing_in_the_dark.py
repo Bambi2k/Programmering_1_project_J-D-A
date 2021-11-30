@@ -279,6 +279,7 @@ def playloop(player: Player):
                 open_chest(player)
             if scen == "Trap":
                 trap(player)
+    win_lose(player)
 
 
 def win_lose(player):
@@ -287,9 +288,8 @@ def win_lose(player):
     elif player.LVL == 10:
         print_medium(
             "You reached lvl 10 and won the game! But the game is not over yet!")
-        # endgame()
+        # endgame() Vi utvecklar senare
 
 
 clear()
 start()
-win_lose()
