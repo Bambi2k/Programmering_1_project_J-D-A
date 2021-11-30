@@ -300,6 +300,7 @@ def playloop(player: Player):
 def win_lose(player):
     if player.HP == 0:
         print_medium("You died and lost the game. Better luck next time!")
+        start()
     elif player.LVL == 10:
         print_medium(
             "You reached lvl 10 and won the game! But the game is not over yet!")
