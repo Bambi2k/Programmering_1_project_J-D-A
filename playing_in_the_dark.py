@@ -7,6 +7,7 @@ import multiprocessing
 import threading
 from pygame import mixer
 
+
 # GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
 
 # De tre olika scenarios som kan förekomma när man öppnar dörrarna
@@ -206,6 +207,26 @@ def start():
     elif play != "yes" or "no":
         again1()
 
+
+def outro():
+    print_medium("Thank you for playing our game")
+    print("\n")
+    print_medium(
+        "Coded by (in no specific order): Alexander Holmgren, Johan James and David Salomonsson")
+    print("\n")
+    print_medium("Main director: Alexander Holmgren")
+    print("\n")
+    print_medium("Executive producer: Johan James")
+    print("\n")
+    print_medium("Music design and story writer: David Salomonsson")
+    print("\n")
+    print_medium("Outside help: Martin Loman")
+    print("\n")
+    print_medium("Thank you again for playing. Hope you enjoyed it :)")
+    print("\n")
+    print_medium("Lots of love from BCAA STUDIOS")
+
+
 # Förklaring till hur spelet fungerar och spelas
 
 
@@ -285,6 +306,10 @@ def playloop(player: Player):
             door_choice = input().lower().strip()
             if door_choice in ["1", "2", "3"]:
                 scen = random.choice(scenarios)
+            else:
+                print("\n")
+                print("Choose a door between 1 and 3 (you idiot)")
+                playloop(player)
             if scen == "Monster":
                 monsterfight(player)
             if scen == "Treasure":
@@ -297,10 +322,15 @@ def playloop(player: Player):
 def win_lose(player):
     if player.HP == 0:
         print_medium("You died and lost the game. Better luck next time!")
+        print("\n")
+        print("\n")
         start()
     elif player.LVL == 10:
         print_medium(
             "You reached lvl 10 and won the game! But the game is not over yet!")
+        print("\n")
+        print("\n")
+        outro()
         # endgame() Vi utvecklar senare
 
 
