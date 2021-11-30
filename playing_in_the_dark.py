@@ -7,7 +7,6 @@ import random
 import multiprocessing
 import threading
 from pygame import mixer
-# playsound("bell.mp3")
 
 # GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
 
