@@ -5,6 +5,8 @@ import random as rand
 from playsound import playsound
 import random
 import multiprocessing
+import threading
+from pygame import mixer
 # playsound("bell.mp3")
 
 # GLÖMM INTE ÄNDRA PLANERINGEN OM DU ÄNDRAR KODEN!!!
@@ -29,6 +31,15 @@ class Item:
     def __init__(self, NAME, STR):
         self.NAME = NAME
         self.STR = STR
+
+
+def intro_music():
+    mixer.init()
+    mixer.music.load("intro.mp3")
+    mixer.music.set_volume(0.9)
+
+
+intro = threading.Thread(target=intro_music, args=())
 
 
 # Bokstav för bokstav print, för en mer långsam och förstårbar upplevelse
@@ -175,8 +186,8 @@ def total_str(player):
 
 
 def start():
-    # p = multiprocessing.Process(target=playsound, args=("intro.mp3",))
-    # p.start()
+    intro_music()
+    mixer.music.play(-1)
     player = Player(10, 4, 1, [])
     print_slow("Would you like to start the game? (Yes/No): ")
     play = input().lower().strip()
@@ -186,6 +197,8 @@ def start():
         want_tutorial = input().lower().strip()
         if want_tutorial == "yes":
             tutorial()
+            intro()
+            playloop(player)
         elif want_tutorial == "no":
             intro()
             playloop(player)
@@ -251,7 +264,9 @@ def intro():
     # time.sleep(2)
     print_slow("Walking a couple of meters reveales 3 identical doors.")
     print("\n")
-    # time.sleep(1)
+    time.sleep(1)
+    mixer.music.fadeout(6000)
+    time.sleep(6)
 
 
 # Spelets loop som kör igenom spelet.
