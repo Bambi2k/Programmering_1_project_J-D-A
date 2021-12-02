@@ -94,12 +94,7 @@ def open_chest(player):
     item_list = [Item("Blade", 2), Item("Dagger", 1), Item("Shortsword", 1),
                  Item("Excalibur", 5), Item("Knife", 1), Item("Katana", 2), Item("Machete", 2), Item("Broadsword", 3)]
     prize = random.choice(item_list)
-    if len(player.BAG) < 5:
-        player.BAG.append(prize)
-        text_functions.print_slow("You have recieved an item: ")
-        print("\n")
-        text_functions.print_slow(prize.NAME)
-    else:
+    while len(player.BAG) == 5:
         print("\n")
         text_functions.print_slow("The chest contained the item: ")
         print("\n")
@@ -118,8 +113,20 @@ def open_chest(player):
             print("\n")
             text_functions.print_slow(
                 "Your new item has been added to your inventory")
-        if choice == "no":
+            break
+        elif choice == "no":
             text_functions.print_slow("Alright then...")
+            break
+        else:
+            print("\n")
+            time.sleep(1)
+            text_functions.print_slow("Try again")
+
+    if len(player.BAG) < 5:
+        player.BAG.append(prize)
+        text_functions.print_slow("You have recieved an item: ")
+        print("\n")
+        text_functions.print_slow(prize.NAME)
 
 
 def trap(player):
@@ -131,18 +138,13 @@ def trap(player):
     print("\n")
 
 
-# Skapar lite klar yta i termninalen (/n skippar en rad)
-
-def clear():
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
 # ifall ett alternativ som inte finns skrivs in (eller en felstavning), så skicker denna tillbaks dig till frågan
 
-
-def again1():
+def again():
     time.sleep(1)
     text_functions.print_slow("Please enter a valid answer")
-    clear()
+    time.sleep(3)
+    text_functions.clear()
     start()
 
 
@@ -158,13 +160,10 @@ def total_str(player):
 
 
 def start():
-    intro_music()
-    mixer.music.play(-1)
     player = Player(10, 4, 1, [])
     text_functions.print_slow("Would you like to start the game? (Yes/No): ")
     play = input().lower().strip()
     if play == "yes":
-
         text_functions.print_slow("Would you like a tutorial? (Yes/No): ")
         want_tutorial = input().lower().strip()
         if want_tutorial == "yes":
@@ -175,11 +174,11 @@ def start():
             text_functions.intro()
             playloop(player)
         elif play != "yes" or "no":
-            again1()
+            again()
     elif play == "no":
         text_functions.print_slow("Maybe next time")
     elif play != "yes" or "no":
-        again1()
+        again()
 
 
 # Spelets loop som kör igenom spelet.
@@ -226,5 +225,7 @@ def win_lose(player):
         text_functions.win_story()
 
 
-clear()
+text_functions.clear()
+intro_music()
+mixer.music.play(-1)
 start()

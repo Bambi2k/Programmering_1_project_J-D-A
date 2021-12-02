@@ -6,6 +6,7 @@ import multiprocessing
 import threading
 from pygame import mixer
 import text_functions
+import os
 
 
 def outro():
@@ -142,3 +143,10 @@ def win_story():
     print("\n")
     time.sleep(6)
     outro()
+
+
+def clear():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+        command = 'cls'
+    os.system(command)
