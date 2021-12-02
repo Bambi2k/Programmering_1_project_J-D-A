@@ -1,11 +1,6 @@
 import time
 import sys
-import random as rand
-import random
-import multiprocessing
-import threading
 from pygame import mixer
-import text_functions
 import os
 
 
