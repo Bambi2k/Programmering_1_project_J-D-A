@@ -25,6 +25,11 @@ class Player:
         self.LVL = LVL
         self.BAG = BAG
 
+    def calculate_str(self):
+        bag_str = 0
+        for item in self.BAG:
+            bag_str += item.STR
+        return(bag_str + self.STR)
 
 class Item:
     def __init__(self, NAME, STR):
@@ -62,7 +67,7 @@ def statcheck(player):
     print("\n")
     text_functions.print_slow(str(player.HP))
     print("\n")
-    text_functions.print_slow(str(player.STR))
+    text_functions.print_slow(str(player.calculate_str()))
     print("\n")
     text_functions.print_slow(str(player.LVL))
     print("\n")
@@ -76,11 +81,11 @@ def monsterfight(player):
     text_functions.print_slow(str(monsterstr))
     print("\n")
     time.sleep(2)
-    if monsterstr < player.STR:
+    if monsterstr < player.calculate_str():
         text_functions.print_slow("You won the battle and gained 1 LVL!")
         player.LVL = player.LVL + 1
         print("\n")
-    elif monsterstr == player.STR:
+    elif monsterstr == player.calculate_str():
         text_functions.print_slow(
             "The monster and you where evenly matched, and you managed to flee the monster unscathed.")
     else:
@@ -148,12 +153,7 @@ def again():
     start()
 
 
-def total_str(player):
-    player.STR = 4
-    t_str = 0
-    for item in player.BAG:
-        t_str = t_str + item.STR
-    player.STR = player.STR + t_str
+
 
 
 # Functionen som startar igång spelet
